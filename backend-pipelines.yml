@@ -10,7 +10,7 @@ variables:
   path: 'backend'
 
 pool:
-  vmImage: windows-latest
+  vmImage: ubuntu-latest
 
 stages:
   - stage: build
