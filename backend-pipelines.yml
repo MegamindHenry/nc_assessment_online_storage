@@ -33,7 +33,7 @@ stages:
           npm run test
         displayName: 'npm run test'
     - job: build
-      displayName: 'test'
+      displayName: 'build'
       dependsOn: test
       condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
       steps:
