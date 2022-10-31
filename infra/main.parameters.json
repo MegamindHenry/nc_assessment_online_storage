@@ -7,6 +7,12 @@
       },
       "accessUserId": {
         "value": "1b216e95-a3de-4e04-aafe-8626cdc04e82"
+      },
+      "appServicePlanSku": {
+        "value": "F1"
+      },
+      "uniqueNameSuffix": {
+        "value": "xx"
       }
     }
   }
