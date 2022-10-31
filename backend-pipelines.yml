@@ -7,7 +7,7 @@ trigger:
     - master
 
 variables:
-  path: 'backend'
+  wd_path: 'backend'
 
 pool:
   vmImage: ubuntu-latest
@@ -26,12 +26,12 @@ stages:
       - script: ls
         displayName: 'list'
       - script: |
-          cd $(path)
+          cd $(wd_path)
           npm install
           cd ..
         displayName: 'npm install'
       - script: |
-          cd $(path)
+          cd $(wd_path)
           npm run test
         displayName: 'npm run test'
     - job: build
@@ -43,7 +43,7 @@ stages:
       - script: node --version
       - task: ArchiveFiles@2
         inputs:
-          rootFolderOrFile: '$(path)/'
+          rootFolderOrFile: '$(wd_path)/'
           includeRootFolder: false
           archiveType: 'zip'
           archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
