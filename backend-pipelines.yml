@@ -23,8 +23,6 @@ stages:
         inputs:
           versionSpec: '16.x'
         displayName: 'Install Node.js'
-      - script: ls
-        displayName: 'list'
       - script: |
           cd $(wd_path)
           npm install
@@ -39,8 +37,6 @@ stages:
       dependsOn: test
       condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
       steps:
-      - script: ls
-      - script: node --version
       - task: ArchiveFiles@2
         inputs:
           rootFolderOrFile: '$(wd_path)/'
