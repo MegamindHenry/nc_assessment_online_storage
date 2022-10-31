@@ -1,0 +1,37 @@
+trigger:
+  paths:
+    include:
+    - frontend/*
+  branches:
+    include:
+    - master
+
+variables:
+  path: 'frontend'
+
+pool:
+  vmImage: windows-latest
+
+stages:
+  - stage: build
+    displayName: 'test and build application'
+    jobs:
+    - job: test
+      displayName: 'lint and unit test'
+      steps:
+      - script: echo 'test'
+    - job: build
+      displayName: 'test'
+      dependsOn: test
+      condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
+      steps:
+      - script: echo 'build'
+  - stage: deploy
+    displayName: 'deploy application to Azure'
+    dependsOn: build
+    condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
+    jobs:
+    - job: deploy
+      displayName: deploy appliction to Azure
+      steps:
+      - script: echo 'deploy'
