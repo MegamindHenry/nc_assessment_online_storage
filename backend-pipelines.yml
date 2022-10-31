@@ -23,6 +23,8 @@ stages:
         inputs:
           versionSpec: '16.x'
         displayName: 'Install Node.js'
+      - script: ls
+        displayName: 'list'
       - script: |
           cd $(path)
           npm install
