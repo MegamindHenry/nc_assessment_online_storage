@@ -57,4 +57,20 @@ stages:
     - job: deploy
       displayName: deploy appliction to Azure
       steps:
-      - script: echo 'deploy'
+      - task: DownloadPipelineArtifact@2
+        inputs:
+          buildType: 'current'
+          artifactName: 'drop_server_dev'
+          targetPath: '$(Pipeline.Workspace)'
+
+      - task: AzureRmWebAppDeployment@4
+        displayName: 'Deploy Azure App Service'
+        retryCountOnTaskFailure: 3
+        inputs:
+          ConnectionType: 'AzureRM'
+          azureSubscription: 'rg_xuefeng_connection'
+          appType: 'webApp'
+          WebAppName: 'onlineStorageWebAppBackendxx'
+          packageForLinux: '$(Pipeline.Workspace)/**/*.zip'
+          WebConfigParameters: '-Handler iisnode -NodeStartFile index.js -appType node'
+          AppSettings: '-WEBSITE_NODE_DEFAULT_VERSION ~16'
