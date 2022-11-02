@@ -17,6 +17,10 @@ resource appServicePlan 'Microsoft.Web/serverfarms@2020-12-01' = {
     name: appServicePlanSku
     capacity: 1
   }
+  kind: 'linux'
+  properties: {
+    reserved: true
+  }
 }
 
 output appServicePlanId string = appServicePlan.id
