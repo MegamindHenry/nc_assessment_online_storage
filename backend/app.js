@@ -15,7 +15,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
 
 app.get('/', (req, res) => {
-  res.send({hello111: 'world111'});
+  res.send({hello: 'world'});
 });
 
 app.post('/', (req, res) => {
