@@ -2,8 +2,6 @@
 global process:readonly
 */
 
-// test comment
-
 const app = require('./app.js');
 
 const PORT = process.env.PORT || 3001;
