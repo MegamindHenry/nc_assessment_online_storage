@@ -1,4 +1,7 @@
 trigger:
+  paths:
+    include:
+    - backend/*
   branches:
     include:
     - main
