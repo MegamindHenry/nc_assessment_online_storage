@@ -11,4 +11,5 @@ stages:
   - stage: build
     jobs:
     - job: test
-      steps: echo '123'
+      steps:
+      - script: echo '123'
