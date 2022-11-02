@@ -63,12 +63,12 @@ stages:
           artifactName: 'drop_server_dev'
           targetPath: '$(Pipeline.Workspace)'
 
-      - task: AzureRmWebAppDeployment@4
-        displayName: 'Deploy Azure App Service'
-        retryCountOnTaskFailure: 3
-        inputs:
-          ConnectionType: 'AzureRM'
-          azureSubscription: 'rg_xuefeng_connection'
-          appType: 'webApp'
-          WebAppName: 'onlineStorageWebAppBackendxx'
-          packageForLinux: '$(Pipeline.Workspace)/**/*.zip'
+      # - task: AzureRmWebAppDeployment@4
+      #   displayName: 'Deploy Azure App Service'
+      #   retryCountOnTaskFailure: 3
+      #   inputs:
+      #     ConnectionType: 'AzureRM'
+      #     azureSubscription: 'rg_xuefeng_connection'
+      #     appType: 'webApp'
+      #     WebAppName: 'onlineStorageWebAppBackendxx'
+      #     packageForLinux: '$(Pipeline.Workspace)/**/*.zip'
