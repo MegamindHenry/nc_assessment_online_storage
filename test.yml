@@ -3,7 +3,7 @@ name: test
 trigger:
   branches:
     include:
-      - master
+      - main
 
 variables:
   wd_path: 'backend'
