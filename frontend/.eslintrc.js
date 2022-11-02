@@ -42,6 +42,7 @@ module.exports = {
   'globals': {
     'expect': 'readonly',
     'test': 'readonly',
-    'module': 'readonly'
+    'module': 'readonly',
+    'process': 'readonly'
   }
 };
