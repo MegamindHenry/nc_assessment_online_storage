@@ -54,7 +54,7 @@ stages:
         displayName: 'npm run build'
       - task: ArchiveFiles@2
         inputs:
-          rootFolderOrFile: '$(wd_path)/build'
+          rootFolderOrFile: '$(wd_path)/build/'
           includeRootFolder: false
           archiveType: 'zip'
           archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
