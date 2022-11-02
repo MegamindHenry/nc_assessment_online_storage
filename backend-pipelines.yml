@@ -16,7 +16,7 @@ stages:
   - stage: build
     displayName: 'test and build application'
     jobs:
-    - job: build
+    - job: test
       displayName: 'lint and unit test'
       steps:
       - task: NodeTool@0
