@@ -10,13 +10,13 @@ variables:
   wd_path: 'backend'
 
 pool:
-  vmImage: ubuntu-latest
+  vmImage: windows-latest
 
 stages:
   - stage: build
     displayName: 'test and build application'
     jobs:
-    - job: test
+    - job: build
       displayName: 'lint and unit test'
       steps:
       - task: NodeTool@0
@@ -37,6 +37,11 @@ stages:
       dependsOn: test
       condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
       steps:
+      - script: |
+          cd $(wd_path)
+          npm install
+          cd ..
+        displayName: 'npm install'
       - task: ArchiveFiles@2
         inputs:
           rootFolderOrFile: '$(wd_path)/'
