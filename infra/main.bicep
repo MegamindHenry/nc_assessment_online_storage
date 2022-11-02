@@ -21,6 +21,7 @@ var keyVaultName = '${appName}KeyVault${uniqueNameSuffix}'
 var appServicePlanName = '${appName}AppServicePlan${uniqueNameSuffix}'
 var webAppFrontendName = '${appName}WebAppFrontend${uniqueNameSuffix}'
 var webAppBackendName = '${appName}WebAppBackend${uniqueNameSuffix}'
+var appConfigName = '${appName}AppConfig${uniqueNameSuffix}'
 
 module keyVaultModule 'modules/keyVault.bicep' = {
   name: 'keyVaultModule'
@@ -56,5 +57,13 @@ module webAppBackendModule 'modules/webApp.bicep' = {
     location: location
     webAppAccountName: webAppBackendName
     appServicePlanId: appServicePlanModule.outputs.appServicePlanId
+  }
+}
+
+module appConfigModule 'modules/appConfig.bicep' = {
+  name: 'appConfigModule'
+  params: {
+    location: location
+    appConfigName: appConfigName
   }
 }
