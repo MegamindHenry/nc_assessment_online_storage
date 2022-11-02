@@ -54,11 +54,11 @@ stages:
         displayName: 'npm run build'
       - task: ArchiveFiles@2
         inputs:
-        rootFolderOrFile: '$(wd_path)/'
-        includeRootFolder: false
-        archiveType: 'zip'
-        archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
-        replaceExistingArchive: true
+          rootFolderOrFile: '$(wd_path)/'
+          includeRootFolder: false
+          archiveType: 'zip'
+          archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
+          replaceExistingArchive: true
       - task: PublishPipelineArtifact@1
         inputs:
           targetPath: '$(Build.ArtifactStagingDirectory)'
