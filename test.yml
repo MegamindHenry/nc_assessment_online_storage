@@ -1,0 +1,14 @@
+trigger:
+  - master
+
+variables:
+  wd_path: 'backend'
+
+pool:
+  vmImage: ubuntu-latest
+
+stages:
+  - stage: build
+    jobs:
+    - job: test
+      steps: echo '123'
