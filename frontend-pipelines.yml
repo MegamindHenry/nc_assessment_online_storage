@@ -19,13 +19,52 @@ stages:
     - job: test
       displayName: 'lint and unit test'
       steps:
-      - script: echo 'test'
+      - task: NodeTool@0
+        inputs:
+          versionSpec: '16.x'
+        displayName: 'Install Node.js'
+      - script: |
+          cd $(wd_path)
+          npm install
+          cd ..
+        displayName: 'npm install'
+      - script: |
+          cd $(wd_path)
+          npm run test
+          cd ..
+        displayName: 'npm run test'
     - job: build
       displayName: 'test'
       dependsOn: test
       condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
       steps:
-      - script: echo 'build'
+      - task: NodeTool@0
+        inputs:
+          versionSpec: '16.x'
+        displayName: 'Install Node.js'
+      - script: |
+          cd $(wd_path)
+          npm install
+          cd ..
+        displayName: 'npm install'
+      - script: |
+          cd $(wd_path)
+          npm run build
+          cd ..
+        displayName: 'npm run build'
+      - task: ArchiveFiles@2
+        inputs:
+        rootFolderOrFile: '$(wd_path)/'
+        includeRootFolder: false
+        archiveType: 'zip'
+        archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
+        replaceExistingArchive: true
+      - task: PublishPipelineArtifact@1
+        inputs:
+          targetPath: '$(Build.ArtifactStagingDirectory)'
+          artifact: 'drop_frontend_dev'
+          publishLocation: 'pipeline'
+      
   - stage: deploy
     displayName: 'deploy application to Azure'
     dependsOn: build
@@ -34,4 +73,18 @@ stages:
     - job: deploy
       displayName: deploy appliction to Azure
       steps:
-      - script: echo 'deploy'
+      - task: DownloadPipelineArtifact@2
+        inputs:
+          buildType: 'current'
+          artifactName: 'drop_frontend_dev'
+          targetPath: '$(Pipeline.Workspace)'
+      - task: AzureRmWebAppDeployment@4
+        displayName: 'Deploy Azure App Service'
+        retryCountOnTaskFailure: 3
+        inputs:
+          ConnectionType: 'AzureRM'
+          azureSubscription: 'rg_xuefeng_connection'
+          appType: 'webApp'
+          WebAppName: 'onlineStorageWebAppFrontendxx'
+          packageForLinux: '$(Pipeline.Workspace)/**/*.zip'
+          StartupCommand: ''
