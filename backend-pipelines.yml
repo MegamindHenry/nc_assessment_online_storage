@@ -56,7 +56,7 @@ stages:
       - task: PublishPipelineArtifact@1
         inputs:
           targetPath: '$(Build.ArtifactStagingDirectory)'
-          artifact: 'drop_server_dev'
+          artifact: 'drop_backend_dev'
           publishLocation: 'pipeline'
   - stage: deploy
     displayName: 'deploy application to Azure'
@@ -69,7 +69,7 @@ stages:
       - task: DownloadPipelineArtifact@2
         inputs:
           buildType: 'current'
-          artifactName: 'drop_server_dev'
+          artifactName: 'drop_backend_dev'
           targetPath: '$(Pipeline.Workspace)'
 
       - task: AzureRmWebAppDeployment@4
