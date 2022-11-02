@@ -14,6 +14,10 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // reture json format
 app.use(express.json());
 
+app.get('/', (req, res) => {
+  res.send({hello: 'world'});
+});
+
 app.post('/', (req, res) => {
   const req_body = req.body;
   res.send(req_body);
