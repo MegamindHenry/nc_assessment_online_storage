@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { backendBaseUrl } from './config';
+// import { backendBaseUrl } from './appConfigContext';
 
 class TestForm extends Component {
 
@@ -22,6 +22,8 @@ class TestForm extends Component {
 
   handleSubmit() {
     console.log('Your input value is: ' + this.state.value);
+
+    const backendBaseUrl = '';
 
     const url = `${backendBaseUrl}/`;
     const data = {

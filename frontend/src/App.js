@@ -1,7 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
 import TestForm from './components/TestForm';
+import getAppConfig from './components/getAppConfig';
 
 function App() {
+  const [backendBaseUrl, setBackendBaseUrl] = useState(null);
+
+  getAppConfig().then(appConfig => {
+    setBackendBaseUrl(appConfig.backendBaseUrl);
+  });
+
+  console.log(backendBaseUrl);
+
   return (
     <div>
       <TestForm />

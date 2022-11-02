@@ -5,5 +5,5 @@ import TestForm from '../components/TestForm';
 test('render App', () => {
   render(<TestForm />);
   const linkElement = screen.getByText('Value');
-  // expect(linkElement).toBeInTheDocument();
+  expect(linkElement).toBeInTheDocument();
 });
