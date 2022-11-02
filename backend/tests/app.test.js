@@ -32,6 +32,6 @@ describe('POST', () => {
       .post('/')
       .send({ hello11: 'hello11' })
       .expect(200)
-      .expect({ hello1: 'hello1' });
+      .expect({ hello11: 'hello11' });
   });
 });
