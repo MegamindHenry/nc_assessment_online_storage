@@ -34,7 +34,10 @@ class TestForm extends Component {
     
     console.log('Your backendBaseUrl is ' + this.state.backendBaseUrl);
     console.log('Your url is ' + url);
-    console.log('Your data is ' + data);
+    console.log('Your data is ');
+    console.log('===');
+    console.log(data);
+    console.log('===');
 
     fetch(url, {
       method: 'POST',
@@ -43,6 +46,10 @@ class TestForm extends Component {
       },
       body: JSON.stringify(data),
     }).then((response) => {
+      console.log('Your response is ');
+      console.log('===');
+      console.log(response);
+      console.log('===');
       return response.json();
     }).then((data) => {
       console.log('Success:', data);
