@@ -32,8 +32,14 @@ class TestForm extends Component {
       value: this.state.value
     };
     
-    console.log('Your backendBaseUrl is ' + this.state.backendBaseUrl);
-    console.log('Your url is ' + url);
+    console.log('Your backendBaseUrl is ');
+    console.log('===');
+    console.log(this.state.backendBaseUrl);
+    console.log('===');
+    console.log('Your url is ');
+    console.log('===');
+    console.log(url);
+    console.log('===');
     console.log('Your data is ');
     console.log('===');
     console.log(data);
@@ -62,8 +68,7 @@ class TestForm extends Component {
   render() {
     return (
       <div>
-        <div>form</div>
-        <label>{this.state.backendBaseUrl}</label>
+        <p>{this.state.backendBaseUrl}</p>
         <label>Value</label>
         <input type="text" onChange={this.updateInput}></input>
         <input type="submit" onClick={this.handleSubmit} ></input>

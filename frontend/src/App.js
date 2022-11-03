@@ -33,8 +33,6 @@ class App extends Component {
     if (this.state.loaded) {
       const msalConfig = getMsalConfig(this.state);
       const msalInstance = new PublicClientApplication(msalConfig);
-      console.log(msalInstance);
-
 
       return (
         <MsalProvider instance={msalInstance}>
@@ -45,6 +43,7 @@ class App extends Component {
             <UnauthenticatedTemplate>
               <div>
                 <p>You are not signed in! Please sign in.</p>
+                <TestForm backendBaseUrl={this.state.backendBaseUrl}/>
               </div>
             </UnauthenticatedTemplate>
           </PageLayout>
