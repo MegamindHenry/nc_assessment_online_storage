@@ -18,13 +18,6 @@ function App() {
   const [appConfig, setAppConfig] = useState(null);
   const [loaded, setLoaded] = useState(null);
 
-  // auth
-  const { accounts } = useMsal();
-  let localAccountId = null;
-  if (accounts[0]) {
-    localAccountId = accounts[0].localAccountId;
-  }
-
   // loading config from Azure app config
   useEffect(() => {
     getAppConfig().then(config => {
@@ -39,6 +32,11 @@ function App() {
     // auth components
     const msalConfig = getMsalConfig(appConfig);
     const msalInstance = new PublicClientApplication(msalConfig);
+    const { accounts } = useMsal();
+    let localAccountId = null;
+    if (accounts[0]) {
+      localAccountId = accounts[0].localAccountId;
+    }
 
     const appContext = {
       appConfig: appConfig,

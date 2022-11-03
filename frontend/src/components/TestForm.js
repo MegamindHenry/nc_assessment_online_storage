@@ -36,7 +36,7 @@ class TestForm extends Component {
     
     console.log('Your backendBaseUrl is ');
     console.log('===');
-    console.log(this.state.backendBaseUrl);
+    console.log(this.context.backendBaseUrl);
     console.log('===');
     console.log('Your localAccountId is ');
     console.log('===');
