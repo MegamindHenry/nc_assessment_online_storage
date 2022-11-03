@@ -78,13 +78,13 @@ stages:
           buildType: 'current'
           artifactName: 'drop_frontend_dev'
           targetPath: '$(Pipeline.Workspace)'
-      # - task: AzureRmWebAppDeployment@4
-      #   displayName: 'Deploy Azure App Service'
-      #   retryCountOnTaskFailure: 3
-      #   inputs:
-      #     ConnectionType: 'AzureRM'
-      #     azureSubscription: 'rg_xuefeng_connection'
-      #     appType: 'webApp'
-      #     WebAppName: 'onlineStorageWebAppFrontendxx'
-      #     packageForLinux: '$(Pipeline.Workspace)/**/*.zip'
-      #     StartupCommand: ''
+      - task: AzureRmWebAppDeployment@4
+        displayName: 'Deploy Azure App Service'
+        retryCountOnTaskFailure: 3
+        inputs:
+          ConnectionType: 'AzureRM'
+          azureSubscription: 'rg_xuefeng_connection'
+          appType: 'webApp'
+          WebAppName: 'onlineStorageWebAppFrontendxx'
+          packageForLinux: '$(Pipeline.Workspace)/**/*.zip'
+          StartupCommand: 'pm2 serve /home/site/wwwroot --no-daemon --spa'
