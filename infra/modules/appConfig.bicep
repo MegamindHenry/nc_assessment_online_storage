@@ -25,7 +25,7 @@ resource appConfigBackendBaseUrl 'Microsoft.AppConfiguration/configurationStores
   parent: appConfig
   name: 'BACKEND_BASE_URL'
   properties: {
-    value: 'onlineStorageWebAppBackendxx'
+    value: 'https://onlinestoragewebappbackendxx.azurewebsites.net'
   }
 }
 
