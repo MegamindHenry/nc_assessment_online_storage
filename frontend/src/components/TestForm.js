@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-// import { backendBaseUrl } from './appConfigContext';
+import PropTypes from 'prop-types';
 
 class TestForm extends Component {
 
@@ -7,6 +7,7 @@ class TestForm extends Component {
     super(props);
 
     this.state = {
+      backendBaseUrl: props.backendBaseUrl,
       value: ''
     };
 
@@ -16,20 +17,22 @@ class TestForm extends Component {
 
 
   updateInput(event) {
-    this.setState({ value: event.target.value });
+    this.setState({
+      ...this.state,
+      value: event.target.value
+    });
   }
 
 
   handleSubmit() {
     console.log('Your input value is: ' + this.state.value);
 
-    const backendBaseUrl = '';
-
-    const url = `${backendBaseUrl}/`;
+    const url = `${this.state.backendBaseUrl}/`;
     const data = {
       value: this.state.value
     };
-
+    
+    console.log('Your backendBaseUrl is ' + this.state.backendBaseUrl);
     console.log('Your url is ' + url);
     console.log('Your data is ' + data);
 
@@ -49,11 +52,11 @@ class TestForm extends Component {
 
   }
 
-
-
   render() {
     return (
       <div>
+        <div>form</div>
+        <label>{this.state.backendBaseUrl}</label>
         <label>Value</label>
         <input type="text" onChange={this.updateInput}></input>
         <input type="submit" onClick={this.handleSubmit} ></input>
@@ -61,5 +64,10 @@ class TestForm extends Component {
     );
   }
 }
+
+// validate props
+TestForm.propTypes = {
+  backendBaseUrl: PropTypes.string
+};
 
 export default TestForm;

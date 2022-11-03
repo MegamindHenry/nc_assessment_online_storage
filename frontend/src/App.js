@@ -1,23 +1,47 @@
-import React, { useState } from 'react';
+import React, { Component } from 'react';
 import TestForm from './components/TestForm';
 import getAppConfig from './components/getAppConfig';
 
-function App() {
-  const [backendBaseUrl, setBackendBaseUrl] = useState(null);
+class App extends Component {
+  constructor(props) {
+    super(props);
 
-  useState(null);
+    this.state = {
+      backendBaseUrl: '',
+      loaded: false
+    };
+  }
 
-  getAppConfig().then(appConfig => {
-    setBackendBaseUrl(appConfig.backendBaseUrl);
-  });
+  componentDidMount() {
+    console.log('loading app config');
+    getAppConfig().then(appConfig => {
+      this.setState({
+        ...this.state,
+        loaded: true,
+        backendBaseUrl: appConfig.backendBaseUrl.value
+      });
+    });
+  }
 
-  console.log(backendBaseUrl);
+  componentDidUpdate() {
+    
+  }
 
-  return (
-    <div>
-      <TestForm />
-    </div>
-  );
+  render() {
+    if (this.state.loaded) {
+      return (
+        <div>
+          <TestForm backendBaseUrl={this.state.backendBaseUrl}/>
+        </div>
+      );
+    } else {
+      return (
+        <div>
+          <span>Loading ...</span>
+        </div>
+      );
+    }
+  }
 }
 
 export default App;
