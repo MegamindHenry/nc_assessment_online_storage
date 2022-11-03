@@ -1,8 +1,19 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { AppContext } from './appContext';
+import { useMsal } from '@azure/msal-react';
 
 function TestForm() {
+  // TestForm states
   const [inputValue, setInputValue] = useState(null);
+  const [localAccountId, setLocalAccountId] = useState(null);
+
+  // auth
+  const { accounts } = useMsal();
+
+  useEffect(() => {
+    // get local account id
+    setLocalAccountId(accounts[0].localAccountId);
+  }, []);
 
   // use context
   const context = useContext(AppContext);
@@ -17,17 +28,17 @@ function TestForm() {
     const url = `${context.appConfig.backendBaseUrl}/`;
     const data = {
       inputValue: inputValue,
-      // localAccountId: this.context.localAccountId
+      localAccountId: localAccountId
     };
     
     console.log('Your backendBaseUrl is ');
     console.log('===');
     console.log(context.appConfig.backendBaseUrl);
     console.log('===');
-    // console.log('Your localAccountId is ');
-    // console.log('===');
-    // console.log(this.context.localAccountId);
-    // console.log('===');
+    console.log('Your localAccountId is ');
+    console.log('===');
+    console.log(localAccountId);
+    console.log('===');
     console.log('Your url is ');
     console.log('===');
     console.log(url);
