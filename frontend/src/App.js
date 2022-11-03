@@ -1,61 +1,72 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import TestForm from './components/TestForm';
 import getAppConfig from './components/getAppConfig';
 import { PublicClientApplication } from '@azure/msal-browser';
-import { AuthenticatedTemplate, UnauthenticatedTemplate, MsalProvider } from '@azure/msal-react';
+import { 
+  AuthenticatedTemplate,
+  UnauthenticatedTemplate,
+  MsalProvider,
+  useMsal
+} from '@azure/msal-react';
 import { getMsalConfig } from './components/getAuthConfig';
 import { PageLayout } from './components/PageLayout';
+import { AppContext } from './components/appContext';
 
-class App extends Component {
-  constructor(props) {
-    super(props);
+function App() {
+  // app state
+  const [appConfig, setAppConfig] = useState(null);
+  const [loaded, setLoaded] = useState(null);
 
-    this.state = {};
+  // auth
+  const { accounts } = useMsal();
+  let localAccountId = null;
+  if (accounts[0]) {
+    localAccountId = accounts[0].localAccountId;
   }
 
-  componentDidMount() {
-    console.log('loading app config');
-    getAppConfig().then(appConfig => {
-      this.setState({
-        ...this.state,
-        loaded: true,
-        ...appConfig
-      });
+  // loading config from Azure app config
+  useEffect(() => {
+    getAppConfig().then(config => {
+      setLoaded(true);
+      setAppConfig(config);
     });
-  }
 
-  componentDidUpdate() {
-    
-  }
+  }, []);
 
-  render() {
-    if (this.state.loaded) {
-      const msalConfig = getMsalConfig(this.state);
-      const msalInstance = new PublicClientApplication(msalConfig);
+  if (loaded) {
+    console.log('loaded ...');
+    // auth components
+    const msalConfig = getMsalConfig(appConfig);
+    const msalInstance = new PublicClientApplication(msalConfig);
 
-      return (
+    const appContext = {
+      appConfig: appConfig,
+      localAccountId: localAccountId
+    };
+
+    return (
+      <AppContext.Provider value={appContext}>
         <MsalProvider instance={msalInstance}>
           <PageLayout>
             <AuthenticatedTemplate>
-              <TestForm backendBaseUrl={this.state.backendBaseUrl}/>
+              <TestForm/>
             </AuthenticatedTemplate>
             <UnauthenticatedTemplate>
               <div>
                 <p>You are not signed in! Please sign in.</p>
-                <TestForm backendBaseUrl={this.state.backendBaseUrl}/>
+                <TestForm/>
               </div>
             </UnauthenticatedTemplate>
           </PageLayout>
         </MsalProvider>
-      );
-    } else {
-      return (
-        <div>
-          <span>Loading ...</span>
-        </div>
-      );
-    }
+      </AppContext.Provider>
+    );
+  } else {
+    console.log('loading ...');
+    return (
+      <p>Loading ...</p>
+    );
   }
 }
 

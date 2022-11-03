@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import { AppContext } from './appContext';
 
 class TestForm extends Component {
+  static contextType = AppContext;
 
   constructor(props) {
     super(props);
 
     this.state = {
-      backendBaseUrl: props.backendBaseUrl,
       value: ''
     };
 
@@ -27,14 +27,20 @@ class TestForm extends Component {
   handleSubmit() {
     console.log('Your input value is: ' + this.state.value);
 
-    const url = `${this.state.backendBaseUrl}/`;
+    const url = `${this.context.appConfig.backendBaseUrl}/`;
+    const localAccountId = this.context.localAccountId;
     const data = {
-      value: this.state.value
+      value: this.state.value,
+      localAccountId: localAccountId
     };
     
     console.log('Your backendBaseUrl is ');
     console.log('===');
     console.log(this.state.backendBaseUrl);
+    console.log('===');
+    console.log('Your localAccountId is ');
+    console.log('===');
+    console.log(localAccountId);
     console.log('===');
     console.log('Your url is ');
     console.log('===');
@@ -76,10 +82,5 @@ class TestForm extends Component {
     );
   }
 }
-
-// validate props
-TestForm.propTypes = {
-  backendBaseUrl: PropTypes.string
-};
 
 export default TestForm;
