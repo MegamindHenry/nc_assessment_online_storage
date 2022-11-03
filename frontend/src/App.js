@@ -28,7 +28,7 @@ function App() {
   }, []);
 
   if (loaded) {
-    console.log('loaded ...');
+    console.log('123 loaded ...');
     // auth components
     const msalConfig = getMsalConfig(appConfig);
     const msalInstance = new PublicClientApplication(msalConfig);
