@@ -39,6 +39,7 @@ module.exports = {
       'always'
     ]
   },
+  'ignorePatterns': ['build/*'],
   'globals': {
     'expect': 'readonly',
     'test': 'readonly',
