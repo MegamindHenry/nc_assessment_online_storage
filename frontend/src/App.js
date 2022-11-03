@@ -6,8 +6,7 @@ import { PublicClientApplication } from '@azure/msal-browser';
 import { 
   AuthenticatedTemplate,
   UnauthenticatedTemplate,
-  MsalProvider,
-  useMsal
+  MsalProvider
 } from '@azure/msal-react';
 import { getMsalConfig } from './components/getAuthConfig';
 import { PageLayout } from './components/PageLayout';
@@ -32,15 +31,9 @@ function App() {
     // auth components
     const msalConfig = getMsalConfig(appConfig);
     const msalInstance = new PublicClientApplication(msalConfig);
-    const { accounts } = useMsal();
-    let localAccountId = null;
-    if (accounts[0]) {
-      localAccountId = accounts[0].localAccountId;
-    }
 
     const appContext = {
-      appConfig: appConfig,
-      localAccountId: localAccountId
+      appConfig: appConfig
     };
 
     return (
@@ -48,13 +41,12 @@ function App() {
         <MsalProvider instance={msalInstance}>
           <PageLayout>
             <AuthenticatedTemplate>
+              <p>You signed in.</p>
               <TestForm/>
             </AuthenticatedTemplate>
             <UnauthenticatedTemplate>
-              <div>
-                <p>You are not signed in! Please sign in.</p>
-                <TestForm/>
-              </div>
+              <p>You are not signed in! Please sign in.</p>
+              <TestForm/>
             </UnauthenticatedTemplate>
           </PageLayout>
         </MsalProvider>

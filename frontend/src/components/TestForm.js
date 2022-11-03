@@ -1,47 +1,33 @@
-import React, { Component } from 'react';
+import React, { useState, useContext } from 'react';
 import { AppContext } from './appContext';
 
-class TestForm extends Component {
-  static contextType = AppContext;
+function TestForm() {
+  const [inputValue, setInputValue] = useState(null);
 
-  constructor(props) {
-    super(props);
+  // use context
+  const context = useContext(AppContext);
 
-    this.state = {
-      value: ''
-    };
-
-    this.updateInput = this.updateInput.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
+  function updateInput(event) {
+    setInputValue(event.target.value);
   }
 
+  function handleSubmit() {
+    console.log('Your input value is: ' + inputValue);
 
-  updateInput(event) {
-    this.setState({
-      ...this.state,
-      value: event.target.value
-    });
-  }
-
-
-  handleSubmit() {
-    console.log('Your input value is: ' + this.state.value);
-
-    const url = `${this.context.appConfig.backendBaseUrl}/`;
-    const localAccountId = this.context.localAccountId;
+    const url = `${context.appConfig.backendBaseUrl}/`;
     const data = {
-      value: this.state.value,
-      localAccountId: localAccountId
+      inputValue: inputValue,
+      // localAccountId: this.context.localAccountId
     };
     
     console.log('Your backendBaseUrl is ');
     console.log('===');
-    console.log(this.context.backendBaseUrl);
+    console.log(context.appConfig.backendBaseUrl);
     console.log('===');
-    console.log('Your localAccountId is ');
-    console.log('===');
-    console.log(localAccountId);
-    console.log('===');
+    // console.log('Your localAccountId is ');
+    // console.log('===');
+    // console.log(this.context.localAccountId);
+    // console.log('===');
     console.log('Your url is ');
     console.log('===');
     console.log(url);
@@ -71,16 +57,14 @@ class TestForm extends Component {
 
   }
 
-  render() {
-    return (
-      <div>
-        <p>{this.state.backendBaseUrl}</p>
-        <label>Value</label>
-        <input type="text" onChange={this.updateInput}></input>
-        <input type="submit" onClick={this.handleSubmit} ></input>
-      </div>
-    );
-  }
+  return (
+    <div>
+      <label>Value</label>
+      <input type="text" onChange={updateInput}></input>
+      <input type="submit" onClick={handleSubmit} ></input>
+    </div>
+  );
 }
+
 
 export default TestForm;
