@@ -10,19 +10,19 @@ describe('POST', () => {
       .post('/')
       .send({ hello: 'hello' })
       .expect(200)
-      .expect({ hello: 'hello' });
+      .expect({ error: 'unauthorized' });
   });
 
-  // 200 status code
-  // json
-  // { hello1: 'hello1' }
-  it('test /', async () => {
-    await request(app)
-      .post('/')
-      .send({ hello1: 'hello1' })
-      .expect(200)
-      .expect({ hello1: 'hello1' });
-  });
+  // // 200 status code
+  // // json
+  // // { hello1: 'hello1' }
+  // it('test /', async () => {
+  //   await request(app)
+  //     .post('/')
+  //     .send({ hello1: 'hello1' })
+  //     .expect(200)
+  //     .expect({ hello1: 'hello1' });
+  // });
 
   // // 200 status code
   // // json
